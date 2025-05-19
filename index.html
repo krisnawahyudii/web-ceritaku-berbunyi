@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
+  <title>Ceritaku Berbunyi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .book-bg {
+      background: url('assets/img/kertas.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-yellow-100 font-sans">
+
+  <!-- Header -->
+  <div class="text-center py-6">
+    <img src="assets/img/logo.png" alt="Logo" class="mx-auto w-32 h-32" />
+    <h1 class="text-3xl font-bold text-pink-700">Ceritaku Berbunyi</h1>
+  </div>
+
+  <!-- Cerita Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6 mb-10">
+    <!-- Cerita 1 -->
+    <div onclick="loadStory('putri-salju')" class="bg-white rounded-xl shadow-xl cursor-pointer p-4 hover:bg-yellow-50">
+      <img src="assets/img/putri salju.jpg" alt="Putri Salju" class="rounded-md mb-2 w-full h-40 object-cover">
+      <div class="flex justify-between items-center">
+        <p class="text-lg font-semibold text-center text-pink-600">Putri Salju</p>
+        <span class="flex items-center text-sm text-gray-500">
+          👁️ <span id="view-putri-salju" class="ml-1">0</span>
+        </span>
+      </div>
+    </div>
+    <!-- Cerita 2 -->
+    <div onclick="loadStory('tiga-babi')" class="bg-white rounded-xl shadow-xl cursor-pointer p-4 hover:bg-yellow-50">
+      <img src="assets/img/3 babi.jpg" alt="Tiga Babi Kecil" class="rounded-md mb-2 w-full h-40 object-cover">
+      <div class="flex justify-between items-center">
+        <p class="text-lg font-semibold text-center text-pink-600">Tiga Babi Kecil</p>
+        <span class="flex items-center text-sm text-gray-500">
+          👁️ <span id="view-tiga-babi" class="ml-1">0</span>
+        </span>
+      </div>
+    </div>
+    <!-- Cerita 3 -->
+    <div onclick="loadStory('kura-kelinci')" class="bg-white rounded-xl shadow-xl cursor-pointer p-4 hover:bg-yellow-50">
+      <img src="assets/img/kura-kura.jpg" alt="Kura-Kura & Kelinci" class="rounded-md mb-2 w-full h-40 object-cover">
+      <div class="flex justify-between items-center">
+        <p class="text-lg font-semibold text-center text-pink-600">Kura-Kura & Kelinci</p>
+        <span class="flex items-center text-sm text-gray-500">
+          👁️ <span id="view-kura-kelinci" class="ml-1">0</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cerita Viewer -->
+  <div id="story-section" class="hidden max-w-3xl mx-auto border-4 border-yellow-300 rounded-xl p-6 mb-10 book-bg relative text-gray-800">
+    <div class="text-xl font-bold mb-2 text-center text-pink-700" id="story-title">Judul Cerita</div>
+    <div class="text-right text-sm italic text-gray-500 mb-1" id="page-indicator">Halaman 1 dari 1</div>
+    <div id="story-content" class="text-lg leading-relaxed min-h-[180px] px-4 py-2 bg-white bg-opacity-80 rounded-xl">...</div>
+
+    <!-- Kontrol -->
+    <div class="flex justify-between items-center mt-6">
+      <button onclick="prevPage()" class="bg-yellow-300 px-4 py-2 rounded shadow hover:bg-yellow-400">Sebelumnya</button>
+      <button onclick="toggleAudio()" class="bg-purple-300 px-4 py-2 rounded shadow hover:bg-purple-400" id="audio-btn">⏸️</button>
+      <button onclick="nextPage()" class="bg-yellow-300 px-4 py-2 rounded shadow hover:bg-yellow-400">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="story-audio" src="assets/mp3/Asal Usul.mp3"></audio>
+
+  <script>
+    const stories = {
+      "putri-salju": {
+        title: "Putri Salju",
+        pages: [
+          "Di suatu kerajaan, ratu melahirkan putri yang cantik dengan kulit seputih salju, rambut hitam, dan bibir merah. Ia diberi nama Putri Salju.",
+          "Namun, ratu menjadi cemburu karena kecantikannya tersaingi. Ia memerintahkan pemburu untuk menyingkirkan sang putri.",
+          "Putri Salju kabur ke hutan dan tinggal bersama tujuh kurcaci yang baik hati."
+        ],
+        audio: "assets/mp3/Asal Usul.mp3"
+      },
+      "tiga-babi": {
+        title: "Tiga Babi Kecil",
+        pages: [
+          "Tiga babi kecil membangun rumah sendiri-sendiri: dari jerami, kayu, dan batu bata.",
+          "Serigala jahat datang dan menghancurkan rumah jerami dan kayu dengan tiupan kuat.",
+          "Namun rumah bata tidak bisa dihancurkan, dan serigala pun menyerah."
+        ],
+        audio: "assets/audio/tiga-babi.mp3"
+      },
+      "kura-kelinci": {
+        title: "Kura-Kura dan Kelinci",
+        pages: [
+          "Kelinci mengejek kura-kura yang lambat dan menantangnya lomba lari.",
+          "Kelinci yang sombong beristirahat di tengah lomba karena yakin akan menang.",
+          "Namun kura-kura terus berjalan perlahan dan akhirnya memenangkan lomba!"
+        ],
+        audio: "assets/audio/kura-kelinci.mp3"
+      }
+    };
+
+    let currentStory = null;
+    let currentPage = 0;
+    let isPlaying = true;
+
+    function loadStory(key) {
+      currentStory = stories[key];
+      currentPage = 0;
+
+      document.getElementById('story-section').classList.remove('hidden');
+      document.getElementById('story-title').innerText = currentStory.title;
+      updatePageContent();
+
+      // Update viewer count
+      const countElement = document.getElementById(`view-${key}`);
+      countElement.innerText = parseInt(countElement.innerText) + 1;
+
+      // Load and play audio
+      const audio = document.getElementById('story-audio');
+      audio.src = currentStory.audio;
+      audio.play();
+      isPlaying = true;
+      document.getElementById('audio-btn').innerText = "⏸️";
+    }
+
+    function updatePageContent() {
+      if (!currentStory) return;
+      const pageText = currentStory.pages[currentPage];
+      const total = currentStory.pages.length;
+      document.getElementById('story-content').innerText = pageText;
+      document.getElementById('page-indicator').innerText = `Halaman ${currentPage + 1} dari ${total}`;
+    }
+
+    function nextPage() {
+      if (!currentStory || currentPage >= currentStory.pages.length - 1) return;
+      currentPage++;
+      updatePageContent();
+    }
+
+    function prevPage() {
+      if (!currentStory || currentPage <= 0) return;
+      currentPage--;
+      updatePageContent();
+    }
+
+    function toggleAudio() {
+      const audio = document.getElementById('story-audio');
+      if (isPlaying) {
+        audio.pause();
+        document.getElementById('audio-btn').innerText = "▶️";
+      } else {
+        audio.play();
+        document.getElementById('audio-btn').innerText = "⏸️";
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
+</body>
+</html>
