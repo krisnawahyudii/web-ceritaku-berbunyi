@@ -15,7 +15,8 @@
     }
   </style>
 </head>
-<body class="bg-yellow-100 font-sans">
+<body class="bg-yellow-100 font-sans min-h-screen flex flex-col">
+  <main class="flex-grow">
 
   <!-- Header -->
   <div class="text-center py-6">
@@ -79,6 +80,7 @@
       <button onclick="nextPage()" class="bg-yellow-300 px-4 py-2 rounded shadow hover:bg-yellow-400">Selanjutnya</button>
     </div>
   </div>
+  </main>
 
   <!-- Audio -->
   <audio id="story-audio" src="assets/mp3/Asal Usul.mp3"></audio>
@@ -170,5 +172,9 @@
       isPlaying = !isPlaying;
     }
   </script>
+
+  <footer class="bg-yellow-200 text-center py-4 text-gray-700 text-sm">
+  Built by <span class="font-semibold">Eep Priadana</span> - Duta Bahasa Bengkulu 2025
+</footer>
 </body>
 </html>
