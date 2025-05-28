@@ -3,10 +3,10 @@ const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJseHNhdHZmeHdzeHZpcGl0Y2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzMjk4MTMsImV4cCI6MjA2MzkwNTgxM30.G7mr8fV4gmQ9bvsepW_rjvk6SHPphJ-Ma-e46rjw6E0"
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 const stories = [
-  "putri-salju",
   "kutukan-raja-mintim",
   "putri-serindu",
   "bujang-awang-tabuang",
+  "putri-salju",
 ]
 
 async function getViewCount(storySlug) {

@@ -1,21 +1,14 @@
 const stories = {
-  "putri-salju": {
-    title: "Putri Salju",
-    pages: [
-      "Di suatu kerajaan yang jauh, hiduplah seorang ratu yang memiliki cermin ajaib. Suatu hari, ratu melahirkan seorang putri yang sangat cantik dengan kulit seputih salju, rambut hitam legam, dan bibir merah seperti darah. Ia diberi nama Putri Salju.",
-      "Seiring berjalannya waktu, Putri Salju tumbuh menjadi gadis yang sangat cantik. Ratu yang sombong menjadi cemburu karena kecantikannya tersaingi. Ia memerintahkan seorang pemburu untuk membawa Putri Salju ke hutan dan menyingkirkannya.",
-      "Putri Salju berhasil kabur ke dalam hutan yang lebat. Di sana, ia menemukan sebuah rumah kecil yang dihuni oleh tujuh kurcaci yang baik hati. Mereka menerima Putri Salju dengan tangan terbuka dan hidup bersama dengan bahagia.",
-    ],
-    audio: "assets/mp3/Asal Usul.mp3",
-  },
   "kutukan-raja-mintim": {
     title: "Legenda Kutukan Raja Mintim",
     pages: [
-      "Dahulu kala, di Bengkulu hidup seorang raja bijak bernama Raja Mintim. Ia sangat dicintai rakyatnya, namun suatu hari, ia membuat keputusan yang tidak adil karena pengaruh penasihat jahat.",
-      "Keputusan tersebut menyebabkan penderitaan bagi banyak rakyat. Rakyat pun marah dan seorang tetua mengutuk sang raja agar kerajaannya hilang ditelan bumi.",
-      "Kutukan itu menjadi nyata. Dalam semalam, istana Raja Mintim menghilang dan hanya meninggalkan danau yang luas. Rakyat percaya bahwa danau itu adalah bekas kerajaan yang dikutuk dan kini dikenal sebagai Danau Dendam Tak Sudah.",
+      "Alkisah, dahulu di Pulau Mintin, daerah Kahayan Hilir terdapat sebuah kerajaan. Rajanya terkenal arif dan bijaksana. Di bawah pemerintahannya, kerajaan mencapai kejayaan dan kemakmuran. Rakyatnya hidup sejahtera dan bahagia. Pada suatu ketika, sang permaisuri meninggal dunia. Raja sangat terpukul dan bersedih hati. Segala upaya dilakukan untuk menghilangkan duka lara sang Raja, tetapi apa pun hiburan yang disuguhkan tidak membuat dirinya bahagia. Akhirnya, untuk menghibur hatinya yang sedang gundah gulana, sang Raja berniat hendak berlayar. Maka tugas pemerintahan diserahkan kepada kedua putra kembarnya, yaitu Naga dan Buaya. Sang raja menjelaskan segala sesuatunya yang bertiubungan dengan tugas seorang pemimpin. Di hadapan reja, dengan sepenuh hati, mereka menerima tanggung jawab tersebut. Setelah raja berlayar, mereka berdua menduduki tahta kerajaan.",
+      "Belum lama menjalankan amanat raja, timbul persoalan yang diakibatkan perbedaan watak keduanya. Si Naga senang menghambur-hamburkan harta, sedangkan si Buaya dikenal sebagai sosok yang pemurah, hemat, dan suka menolong. Melihat hal itu, si Buaya mencoba menasihati saudaranya. Agaknya, si Naga benar-benar berhati batu. Apa pun nasehat yang dikatakan saudara kembarnya tak membuatnya berubah. Adu mulut pun sering terjadi hingga berujung pada pertikaian. Pertengkaran dua saudara itu kian hari kian menjadi. Tidak hanya adu mulut dan adu fisik di antara mereka berdua, tetapi sudah melibatkan para prajurit kerajaan dan rakyat. Sebagian membela si Naga, sebagian lagi berada di belakang si Buaya. Akibat pertengkaran hebat telah menimbulkan banyak korban jiwa di kalangan istana dan rakyat umumnya.",
+      "Apa yang dialami kerajaan terasa juga oleh Raja. Sementara dalam pelayarannya, sang Raja merasa ada yang tidak Beres. Maka, diperintahkannya nahkoda kapal berbalik menuju istana. Benar saja, rupanya perang saudara tengah berlangsung dengan sengitnya. Melihat keadaan tersebut, Raja benar-benar murka. Raja segera mengambil tindakan dan dengan lantang Raja berkata kepada Naga dan Buaya. 'Kalian berdua telah merusak kepercayaan yang aku berikan. Banyak prajurit kerajaan yang tewas, karena kalian sibuk sendiri, dan rakyat tidak terurus. Oleh karena itu, aku jatuhkan hukuman kepada kalian berdua.' Raja pun berseru dengan mantranya. 'Buaya, jadilah engkau buaya dan hidup di air. Engkau diperbolehkan menetap di sini karena kesalahanmu sedikit. Kuperintahkan engkau untuk menjaga Pulau Mintin'. Raja berseru dengan mantra kutukannya yang sakti.",
+      "'Sedangkan engkau, Naga, jadilah engkau seekor naga. Kamulah penyebab semua kekacauan ini dan pergilah ke Kapuas. Kamu bertugas melindungi sungai Kapuas agar tidak ditumbuhi Cendawan Bantilung.' Lanjut sang Raja dengan penuh amarah. Baru saja kutukan itu terlontar, alam seolah-olah menunjukkan kemarahannya. Langit tiba-tiba menjadi gelap dan petir tidak henti-hentinya menggelegar. Kedua putra kembar raja berubah bentuk sesuai kutukan tersebut. Si Buaya menjelma menjadi buaya dan berdiam di pulau Mintin, sedangkan si Naga berubah menjadi naga dan hidup di sungai Kapuas.",
+      "Sepeninggal kedua anak kembarnya yang telah berubah wujud, Raja kembali membenahi kerajaannya. Raja juga minta maaf kepada rakyatnya atas kelakuan kedua anaknya. Kerajaan pun perlahan bangkit dan kembali hidup makmur dan sejahtera. [Eva De]",
     ],
-    audio: "assets/mp3/Asal Usul.mp3",
+    audio: "assets/mp3/kutukan-raja-mintim.mp3",
   },
   "putri-serindu": {
     title: "Legenda Putri Serindu",
@@ -32,6 +25,15 @@ const stories = {
       "Di sebuah desa di Bengkulu, hidup seorang pemuda bernama Awang Tabuang yang dikenal tampan dan kuat. Ia sering membantu penduduk desa tanpa pamrih.",
       "Suatu hari, Awang Tabuang pergi merantau untuk mencari pengalaman. Namun, ia tidak pernah kembali. Penduduk desa percaya ia telah berubah menjadi batu karena melanggar sumpah leluhurnya.",
       "Legenda ini dipercaya sebagai pengingat bagi generasi muda agar selalu menjaga janji dan menghormati adat istiadat.",
+    ],
+    audio: "assets/mp3/Asal Usul.mp3",
+  },
+  "putri-salju": {
+    title: "Putri Salju",
+    pages: [
+      "Di suatu kerajaan yang jauh, hiduplah seorang ratu yang memiliki cermin ajaib. Suatu hari, ratu melahirkan seorang putri yang sangat cantik dengan kulit seputih salju, rambut hitam legam, dan bibir merah seperti darah. Ia diberi nama Putri Salju.",
+      "Seiring berjalannya waktu, Putri Salju tumbuh menjadi gadis yang sangat cantik. Ratu yang sombong menjadi cemburu karena kecantikannya tersaingi. Ia memerintahkan seorang pemburu untuk membawa Putri Salju ke hutan dan menyingkirkannya.",
+      "Putri Salju berhasil kabur ke dalam hutan yang lebat. Di sana, ia menemukan sebuah rumah kecil yang dihuni oleh tujuh kurcaci yang baik hati. Mereka menerima Putri Salju dengan tangan terbuka dan hidup bersama dengan bahagia.",
     ],
     audio: "assets/mp3/Asal Usul.mp3",
   },
