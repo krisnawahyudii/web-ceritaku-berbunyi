@@ -50,3 +50,22 @@ async function initializeViewCounts() {
 document.addEventListener("DOMContentLoaded", function () {
   initializeViewCounts()
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+  const select = document.getElementById("language-select")
+  const ceritaCards = document.getElementById("cerita-cards")
+  const pengembanganMsg = document.getElementById("pengembangan-msg")
+
+  ceritaCards.classList.add("hidden")
+  pengembanganMsg.classList.add("hidden")
+
+  select.addEventListener("change", function () {
+    if (select.value === "id") {
+      ceritaCards.classList.remove("hidden")
+      pengembanganMsg.classList.add("hidden")
+    } else if (select.value === "en") {
+      ceritaCards.classList.add("hidden")
+      pengembanganMsg.classList.remove("hidden")
+    }
+  })
+})

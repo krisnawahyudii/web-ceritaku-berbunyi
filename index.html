@@ -42,7 +42,8 @@
           <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
             <label for="language-select" class="text-gray-700 font-medium">🌍 Pilih Bahasa:</label>
             <select id="language-select" class="px-3 py-2 rounded-full border-2 border-pink-200 bg-white/80 focus:border-pink-400 focus:outline-none w-full sm:w-auto">
-              <option value="id" selected>Bahasa Indonesia</option>
+              <option value="" selected>Pilih Bahasa..</option>
+              <option value="id">Bahasa Indonesia</option>
               <option value="en">Bahasa Daerah</option>
             </select>
           </div>
@@ -55,7 +56,7 @@
     </div>
 
     <!-- Cerita Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-6 mb-12 max-w-6xl mx-auto">
+    <div id="cerita-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-6 mb-12 max-w-6xl mx-auto">
       <!-- Legenda Kutukan Raja Mintim -->
       <a href="story.html?slug=kutukan-raja-mintim" class="bg-blur-glass card-shadow rounded-2xl shadow-xl cursor-pointer p-4 sm:p-6 relative overflow-hidden block transition-all duration-300 hover:scale-[1.03]">
         <img src="assets/img/raja-miritin.jpg" alt="Legenda Kutukan Raja Mintim" class="rounded-xl mb-4 w-full h-40 sm:h-48 object-cover shadow-md">
@@ -116,11 +117,23 @@
         </div>
       </a>
     </div>
+    <!-- Pesan dalam pengembangan -->
+    <div id="pengembangan-msg" class="flex justify-center items-center py-12">
+      <div class="bg-white/80 px-8 py-8 rounded-2xl shadow-lg border-2 border-pink-300 max-w-md w-full flex flex-col items-center">
+        <div class="mb-4">
+          <svg class="w-14 h-14 text-pink-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-pink-600 mb-2">Fitur Dalam Pengembangan</h2>
+        <p class="text-gray-700 text-center">Cerita dalam bahasa daerah sedang kami kembangkan. Nantikan update terbaru dari kami! 🎉</p>
+      </div>
+    </div>
   </main>
   <footer class="bg-blur-glass text-center py-6 text-gray-700 border-t border-pink-200 mt-auto">
     <div class="max-w-4xl mx-auto px-4">
       <p class="text-lg font-medium mb-2">
-        Built with by <span class="font-bold text-pink-600">Eep Priadana</span>
+        Dibuat oleh <span class="font-bold text-pink-600">Eep Priadana</span>
       </p>
       <p class="text-sm text-gray-600">
         Duta Bahasa Bengkulu 2025
