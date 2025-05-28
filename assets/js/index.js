@@ -69,3 +69,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+  const select = document.getElementById("language-select")
+  const audio = document.getElementById("audio-cerita")
+
+  select.addEventListener("change", function () {
+    // Cek jika user memilih bahasa (bukan default)
+    if (select.value !== "") {
+      audio.muted = false // Pastikan unmute
+      audio.play()
+    }
+  })
+})

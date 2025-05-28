@@ -17,7 +17,7 @@ const stories = {
       "Banyak pangeran datang melamar, namun Putri Serindu selalu menolak karena menunggu cinta sejati. Suatu hari, seorang pangeran sederhana menyentuh hatinya karena ketulusan dan keberaniannya.",
       "Namun, sebelum pernikahan mereka terjadi, pangeran itu gugur dalam peperangan. Putri Serindu pun menghilang dan diyakini berubah menjadi bunga Serindu yang tumbuh di hutan sebagai simbol kesetiaan dan cinta sejati.",
     ],
-    audio: "assets/mp3/Asal Usul.mp3",
+    audio: "assets/mp3/Asal-Usul.mp3",
   },
   "bujang-awang-tabuang": {
     title: "Legenda Bujang Awang Tabuang",
@@ -26,7 +26,7 @@ const stories = {
       "Suatu hari, Awang Tabuang pergi merantau untuk mencari pengalaman. Namun, ia tidak pernah kembali. Penduduk desa percaya ia telah berubah menjadi batu karena melanggar sumpah leluhurnya.",
       "Legenda ini dipercaya sebagai pengingat bagi generasi muda agar selalu menjaga janji dan menghormati adat istiadat.",
     ],
-    audio: "assets/mp3/Asal Usul.mp3",
+    audio: "assets/mp3/Asal-Usul.mp3",
   },
   "putri-salju": {
     title: "Putri Salju",
@@ -35,7 +35,7 @@ const stories = {
       "Seiring berjalannya waktu, Putri Salju tumbuh menjadi gadis yang sangat cantik. Ratu yang sombong menjadi cemburu karena kecantikannya tersaingi. Ia memerintahkan seorang pemburu untuk membawa Putri Salju ke hutan dan menyingkirkannya.",
       "Putri Salju berhasil kabur ke dalam hutan yang lebat. Di sana, ia menemukan sebuah rumah kecil yang dihuni oleh tujuh kurcaci yang baik hati. Mereka menerima Putri Salju dengan tangan terbuka dan hidup bersama dengan bahagia.",
     ],
-    audio: "assets/mp3/Asal Usul.mp3",
+    audio: "assets/mp3/Asal-Usul.mp3",
   },
 }
 
