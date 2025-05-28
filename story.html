@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="assets/img/logo.jpg" type="image/x-icon">
+  <title>Detail Cerita | Ceritaku Berbunyi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="font-sans min-h-screen flex flex-col">
+  <div id="error-toast" class="error-toast bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg max-w-sm">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+      </svg>
+      <span id="error-message">Terjadi kesalahan</span>
+    </div>
+  </div>
+  <div id="success-toast" class="error-toast bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg max-w-sm">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+      </svg>
+      <span id="success-message">Berhasil!</span>
+    </div>
+  </div>
+  <main class="flex-grow">
+    <!-- Header -->
+    <div class="bg-blur-glass rounded-b-3xl mx-4 mb-8 shadow-lg pt-6 pb-8 px-2 max-w-2xl mx-auto mt-6">
+      <div class="flex flex-col items-center">
+        <img src="assets/img/logo.jpg" alt="Logo"
+          class="mx-auto w-20 h-20 sm:w-36 sm:h-36 rounded-full border-4 border-pink-300 shadow-xl" />
+        <div class="absolute ml-[68px] mt-[-20px] sm:ml-[130px] sm:mt-[-32px] bg-pink-500 text-white text-xs px-2 py-1 rounded-full">📚</div>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-pink-700 mt-4 mb-2 text-center">Ceritaku Berbunyi</h1>
+      <p class="text-pink-600/80 text-xs sm:text-sm text-center">Koleksi cerita anak yang menarik dan mendidik</p>
+      <div class="mt-4 flex justify-center">
+        <button onclick="window.location.href='index.html'"
+          class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-md transition-all">
+          <span class="block sm:hidden text-lg">←</span>
+          <span class="hidden sm:block text-lg">← List Cerita</span>
+        </button>
+      </div>
+    </div>
+    <div id="loading-indicator" class="text-center py-4">
+      <div class="loading-spinner mx-auto mb-2"></div>
+      <p class="text-pink-600">Memuat cerita...</p>
+    </div>
+    <div id="story-section" class="hidden max-w-2xl mx-auto card-shadow bg-blur-glass border-4 border-pink-300 rounded-2xl p-4 sm:p-8 mb-12 relative text-gray-800 shadow-2xl">
+      <div class="absolute top-4 right-4">
+        <button onclick="window.location.href='index.html'" class="bg-red-400 hover:bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center transition-colors" title="Kembali">
+          ✕
+        </button>
+      </div>
+      <div class="text-xl sm:text-2xl font-bold mb-4 text-center text-pink-800" id="story-title"></div>
+      <div class="text-right text-xs sm:text-sm italic text-gray-600 mb-4 bg-white/50 px-3 py-1 rounded-full inline-block" id="page-indicator"></div>
+      <div id="story-content" class="text-base sm:text-lg leading-relaxed min-h-[120px] sm:min-h-[200px] px-3 sm:px-6 py-3 sm:py-6 bg-white/90 rounded-xl shadow-inner backdrop-blur-sm border border-pink-200"></div>
+      <!-- Tombol Navigasi -->
+      <div class="flex flex-row justify-center items-center mt-8 bg-white/50 rounded-2xl p-2 gap-2">
+        <!-- Tombol Sebelumnya -->
+        <button onclick="prevPage()" id="prev-btn"
+          class="bg-gradient-to-r from-yellow-400 to-orange-400 px-4 py-2 sm:px-6 sm:py-3 rounded-xl shadow-lg hover:from-yellow-500 hover:to-orange-500 transition-all text-white font-medium flex items-center justify-center text-base sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed">
+          <span class="text-lg sm:mr-2">←</span>
+          <span class="hidden sm:inline">Sebelumnya</span>
+        </button>
+        <!-- Tombol Audio -->
+        <button onclick="toggleAudio()" id="audio-btn"
+          class="bg-gradient-to-r from-purple-400 to-pink-400 px-4 py-2 sm:px-6 sm:py-3 rounded-xl shadow-lg hover:from-purple-500 hover:to-pink-500 transition-all text-white font-medium flex items-center justify-center text-base sm:text-lg">
+          <span class="text-lg sm:mr-2">▶️</span>
+          <span class="hidden sm:inline">Audio</span>
+        </button>
+        <!-- Tombol Selanjutnya -->
+        <button onclick="nextPage()" id="next-btn"
+          class="bg-gradient-to-r from-yellow-400 to-orange-400 px-4 py-2 sm:px-6 sm:py-3 rounded-xl shadow-lg hover:from-yellow-500 hover:to-orange-500 transition-all text-white font-medium flex items-center justify-center text-base sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed">
+          <span class="text-lg sm:mr-2">→</span>
+          <span class="hidden sm:inline">Selanjutnya</span>
+        </button>
+      </div>
+      <div class="text-right text-xs sm:text-sm text-gray-600 mt-4">
+        👁️ <span id="view-count" class="ml-1 font-medium"></span> kali dilihat
+      </div>
+    </div>
+  </main>
+  <audio id="story-audio"></audio>
+  <footer class="bg-blur-glass text-center py-6 text-gray-700 border-t border-pink-200 mt-auto">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="text-lg font-medium mb-2">
+        Built with by <span class="font-bold text-pink-600">Eep Priadana</span>
+      </p>
+      <p class="text-sm text-gray-600">
+        Duta Bahasa Bengkulu 2025
+      </p>
+    </div>
+  </footer>
+  <script src="assets/js/story.js"></script>
+</body>
+</html>

@@ -6,175 +6,127 @@
   <link rel="icon" href="assets/img/logo.jpg" type="image/x-icon">
   <title>Ceritaku Berbunyi</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .book-bg {
-      background: url('assets/img/kertas.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body class="bg-yellow-100 font-sans min-h-screen flex flex-col">
+<body class="font-sans min-h-screen flex flex-col">
+
+  <!-- ... Toasts ... -->
+  <div id="error-toast" class="error-toast bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg max-w-sm">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+      </svg>
+      <span id="error-message">Terjadi kesalahan</span>
+    </div>
+  </div>
+  <div id="success-toast" class="error-toast bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg max-w-sm">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+      </svg>
+      <span id="success-message">Berhasil!</span>
+    </div>
+  </div>
   <main class="flex-grow">
-
-  <!-- Header -->
-  <div class="text-center py-6">
-    <img src="assets/img/logo.jpg" alt="Logo" class="mx-auto w-32 h-32" />
-    <h1 class="text-3xl font-bold text-pink-700">Ceritaku Berbunyi</h1>
-
-    <!-- Pilihan Bahasa -->
-    <div class="mt-4">
-      <label for="language-select" class="mr-2 text-gray-700 font-medium">Pilih Bahasa:</label>
-      <select id="language-select" class="px-3 py-1 rounded border border-gray-300">
-        <option value="id" selected>Bahasa Indonesia</option>
-        <option value="en">English</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- Cerita Cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6 mb-10">
-    <!-- Cerita 1 -->
-    <div onclick="loadStory('putri-salju')" class="bg-white rounded-xl shadow-xl cursor-pointer p-4 hover:bg-yellow-50">
-      <img src="assets/img/putri salju.jpg" alt="Putri Salju" class="rounded-md mb-2 w-full h-40 object-cover">
-      <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold text-center text-pink-600">Putri Salju</p>
-        <span class="flex items-center text-sm text-gray-500">
-          👁️ <span id="view-putri-salju" class="ml-1">0</span>
-        </span>
+    <!-- Header ... (unchanged) ... -->
+    <div class="bg-blur-glass rounded-b-3xl mx-4 mb-8 shadow-lg pt-6 pb-8 px-2 max-w-2xl mx-auto mt-6">
+      <div class="flex flex-col items-center">
+        <img src="assets/img/logo.jpg" alt="Logo" class="mx-auto w-20 h-20 sm:w-36 sm:h-36 rounded-full border-4 border-pink-300 shadow-xl" />
+        <div class="absolute ml-[68px] mt-[-20px] sm:ml-[130px] sm:mt-[-32px] bg-pink-500 text-white text-xs px-2 py-1 rounded-full">📚</div>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-bold text-pink-700 mt-4 mb-2 text-center">Ceritaku Berbunyi</h1>
+      <p class="text-pink-600/80 text-xs sm:text-sm text-center">Koleksi cerita anak yang menarik dan mendidik</p>
+      <div class="mt-4 flex justify-center">
+        <div class="bg-white/70 px-4 py-2 rounded-full shadow-none sm:shadow-md w-full sm:w-auto">
+          <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+            <label for="language-select" class="text-gray-700 font-medium">🌍 Pilih Bahasa:</label>
+            <select id="language-select" class="px-3 py-2 rounded-full border-2 border-pink-200 bg-white/80 focus:border-pink-400 focus:outline-none w-full sm:w-auto">
+              <option value="id" selected>Bahasa Indonesia</option>
+              <option value="en">Bahasa Daerah</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- Cerita 2 -->
-    <div onclick="loadStory('tiga-babi')" class="bg-white rounded-xl shadow-xl cursor-pointer p-4 hover:bg-yellow-50">
-      <img src="assets/img/3 babi.jpg" alt="Tiga Babi Kecil" class="rounded-md mb-2 w-full h-40 object-cover">
-      <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold text-center text-pink-600">Tiga Babi Kecil</p>
-        <span class="flex items-center text-sm text-gray-500">
-          👁️ <span id="view-tiga-babi" class="ml-1">0</span>
-        </span>
-      </div>
+    <div id="loading-indicator" class="hidden text-center py-4">
+      <div class="loading-spinner mx-auto mb-2"></div>
+      <p class="text-pink-600">Memuat data...</p>
     </div>
-    <!-- Cerita 3 -->
-    <div onclick="loadStory('kura-kelinci')" class="bg-white rounded-xl shadow-xl cursor-pointer p-4 hover:bg-yellow-50">
-      <img src="assets/img/kura-kura.jpg" alt="Kura-Kura & Kelinci" class="rounded-md mb-2 w-full h-40 object-cover">
-      <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold text-center text-pink-600">Kura-Kura & Kelinci</p>
-        <span class="flex items-center text-sm text-gray-500">
-          👁️ <span id="view-kura-kelinci" class="ml-1">0</span>
-        </span>
-      </div>
-    </div>
-  </div>
 
-  <!-- Cerita Viewer -->
-  <div id="story-section" class="hidden max-w-3xl mx-auto border-4 border-yellow-300 rounded-xl p-6 mb-10 book-bg relative text-gray-800">
-    <div class="text-xl font-bold mb-2 text-center text-pink-700" id="story-title">Judul Cerita</div>
-    <div class="text-right text-sm italic text-gray-500 mb-1" id="page-indicator">Halaman 1 dari 1</div>
-    <div id="story-content" class="text-lg leading-relaxed min-h-[180px] px-4 py-2 bg-white bg-opacity-80 rounded-xl">...</div>
+    <!-- Cerita Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-6 mb-12 max-w-6xl mx-auto">
+      <a href="story.html?slug=putri-salju" class="bg-blur-glass card-shadow rounded-2xl shadow-xl cursor-pointer p-4 sm:p-6 relative overflow-hidden block transition-all duration-300 hover:scale-[1.03]">
+        <img src="assets/img/putri salju.jpg" alt="Putri Salju" class="rounded-xl mb-4 w-full h-40 sm:h-48 object-cover shadow-md">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg sm:text-xl font-bold text-pink-700">Putri Salju</h3>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm mb-4">Kisah putri cantik dan tujuh kurcaci yang baik hati</p>
+        <div class="flex justify-between items-center">
+          <button class="bg-gradient-to-r from-pink-400 to-purple-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:from-pink-500 hover:to-purple-500 transition-all">
+            Baca
+          </button>
+          <span class="flex items-center text-xs sm:text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            👁️ <span id="view-putri-salju" class="ml-1 font-medium"><div class="loading-spinner w-4 h-4"></div></span>
+          </span>
+        </div>
+      </a>
+      <!-- Legenda Kutukan Raja Mintim -->
+      <a href="story.html?slug=kutukan-raja-mintim" class="bg-blur-glass card-shadow rounded-2xl shadow-xl cursor-pointer p-4 sm:p-6 relative overflow-hidden block transition-all duration-300 hover:scale-[1.03]">
+        <img src="assets/img/raja-miritin.jpg" alt="Legenda Kutukan Raja Mintim" class="rounded-xl mb-4 w-full h-40 sm:h-48 object-cover shadow-md">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg sm:text-xl font-bold text-blue-700">Legenda Kutukan Raja Mintim</h3>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm mb-4">Asal usul Danau Dendam Tak Sudah yang penuh misteri</p>
+        <div class="flex justify-between items-center">
+          <button class="bg-gradient-to-r from-blue-400 to-indigo-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:from-blue-500 hover:to-indigo-500 transition-all">Baca</button>
+          <span class="flex items-center text-xs sm:text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            👁️ <span id="view-kutukan-raja-mintim" class="ml-1 font-medium"><div class="loading-spinner w-4 h-4"></div></span>
+          </span>
+        </div>
+      </a>
 
-    <!-- Kontrol -->
-    <div class="flex justify-between items-center mt-6">
-      <button onclick="prevPage()" class="bg-yellow-300 px-4 py-2 rounded shadow hover:bg-yellow-400">Sebelumnya</button>
-      <button onclick="toggleAudio()" class="bg-purple-300 px-4 py-2 rounded shadow hover:bg-purple-400" id="audio-btn">⏸️</button>
-      <button onclick="nextPage()" class="bg-yellow-300 px-4 py-2 rounded shadow hover:bg-yellow-400">Selanjutnya</button>
+      <!-- Putri Serindu -->
+      <a href="story.html?slug=putri-serindu" class="bg-blur-glass card-shadow rounded-2xl shadow-xl cursor-pointer p-4 sm:p-6 relative overflow-hidden block transition-all duration-300 hover:scale-[1.03]">
+        <img src="assets/img/putri_serindu.jpg" alt="Legenda Putri Serindu" class="rounded-xl mb-4 w-full h-40 sm:h-48 object-cover shadow-md">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg sm:text-xl font-bold text-purple-700">Legenda Putri Serindu</h3>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm mb-4">Kisah cinta sejati yang berubah menjadi bunga abadi</p>
+        <div class="flex justify-between items-center">
+          <button class="bg-gradient-to-r from-purple-400 to-pink-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:from-purple-500 hover:to-pink-500 transition-all">Baca</button>
+          <span class="flex items-center text-xs sm:text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            👁️ <span id="view-putri-serindu" class="ml-1 font-medium"><div class="loading-spinner w-4 h-4"></div></span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Bujang Awang Tabuang -->
+      <a href="story.html?slug=bujang-awang-tabuang" class="bg-blur-glass card-shadow rounded-2xl shadow-xl cursor-pointer p-4 sm:p-6 relative overflow-hidden block transition-all duration-300 hover:scale-[1.03]">
+        <img src="assets/img/bujang awang.jpg" alt="Legenda Bujang Awang Tabuang" class="rounded-xl mb-4 w-full h-40 sm:h-48 object-cover shadow-md">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg sm:text-xl font-bold text-green-700">Legenda Bujang Awang Tabuang</h3>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm mb-4">Legenda pemuda yang berubah menjadi batu karena melanggar sumpah</p>
+        <div class="flex justify-between items-center">
+          <button class="bg-gradient-to-r from-green-400 to-yellow-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:from-green-500 hover:to-yellow-500 transition-all">Baca</button>
+          <span class="flex items-center text-xs sm:text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            👁️ <span id="view-bujang-awang-tabuang" class="ml-1 font-medium"><div class="loading-spinner w-4 h-4"></div></span>
+          </span>
+        </div>
+      </a>
     </div>
-  </div>
   </main>
-
-  <!-- Audio -->
-  <audio id="story-audio" src="assets/mp3/Asal Usul.mp3"></audio>
-
-  <script>
-    const stories = {
-      "putri-salju": {
-        title: "Putri Salju",
-        pages: [
-          "Di suatu kerajaan, ratu melahirkan putri yang cantik dengan kulit seputih salju, rambut hitam, dan bibir merah. Ia diberi nama Putri Salju.",
-          "Namun, ratu menjadi cemburu karena kecantikannya tersaingi. Ia memerintahkan pemburu untuk menyingkirkan sang putri.",
-          "Putri Salju kabur ke hutan dan tinggal bersama tujuh kurcaci yang baik hati."
-        ],
-        audio: "assets/mp3/Asal Usul.mp3"
-      },
-      "tiga-babi": {
-        title: "Tiga Babi Kecil",
-        pages: [
-          "Tiga babi kecil membangun rumah sendiri-sendiri: dari jerami, kayu, dan batu bata.",
-          "Serigala jahat datang dan menghancurkan rumah jerami dan kayu dengan tiupan kuat.",
-          "Namun rumah bata tidak bisa dihancurkan, dan serigala pun menyerah."
-        ],
-        audio: "assets/audio/tiga-babi.mp3"
-      },
-      "kura-kelinci": {
-        title: "Kura-Kura dan Kelinci",
-        pages: [
-          "Kelinci mengejek kura-kura yang lambat dan menantangnya lomba lari.",
-          "Kelinci yang sombong beristirahat di tengah lomba karena yakin akan menang.",
-          "Namun kura-kura terus berjalan perlahan dan akhirnya memenangkan lomba!"
-        ],
-        audio: "assets/audio/kura-kelinci.mp3"
-      }
-    };
-
-    let currentStory = null;
-    let currentPage = 0;
-    let isPlaying = true;
-
-    function loadStory(key) {
-      currentStory = stories[key];
-      currentPage = 0;
-
-      document.getElementById('story-section').classList.remove('hidden');
-      document.getElementById('story-title').innerText = currentStory.title;
-      updatePageContent();
-
-      // Update viewer count
-      const countElement = document.getElementById(`view-${key}`);
-      countElement.innerText = parseInt(countElement.innerText) + 1;
-
-      // Load and play audio
-      const audio = document.getElementById('story-audio');
-      audio.src = currentStory.audio;
-      audio.play();
-      isPlaying = true;
-      document.getElementById('audio-btn').innerText = "⏸️";
-    }
-
-    function updatePageContent() {
-      if (!currentStory) return;
-      const pageText = currentStory.pages[currentPage];
-      const total = currentStory.pages.length;
-      document.getElementById('story-content').innerText = pageText;
-      document.getElementById('page-indicator').innerText = `Halaman ${currentPage + 1} dari ${total}`;
-    }
-
-    function nextPage() {
-      if (!currentStory || currentPage >= currentStory.pages.length - 1) return;
-      currentPage++;
-      updatePageContent();
-    }
-
-    function prevPage() {
-      if (!currentStory || currentPage <= 0) return;
-      currentPage--;
-      updatePageContent();
-    }
-
-    function toggleAudio() {
-      const audio = document.getElementById('story-audio');
-      if (isPlaying) {
-        audio.pause();
-        document.getElementById('audio-btn').innerText = "▶️";
-      } else {
-        audio.play();
-        document.getElementById('audio-btn').innerText = "⏸️";
-      }
-      isPlaying = !isPlaying;
-    }
-  </script>
-
-  <footer class="bg-yellow-200 text-center py-4 text-gray-700 text-sm">
-  Built by <span class="font-semibold">Eep Priadana</span> - Duta Bahasa Bengkulu 2025
-</footer>
+  <footer class="bg-blur-glass text-center py-6 text-gray-700 border-t border-pink-200 mt-auto">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="text-lg font-medium mb-2">
+        Built with by <span class="font-bold text-pink-600">Eep Priadana</span>
+      </p>
+      <p class="text-sm text-gray-600">
+        Duta Bahasa Bengkulu 2025
+      </p>
+    </div>
+  </footer>
+  <script src="assets/js/index.js"></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+body {
+  background: url('../img/background.png') center center/cover no-repeat fixed;
+  min-height: 100vh;
+}
+.bg-blur-glass {
+  background: rgba(255,255,255,0.75);
+  box-shadow: 0 12px 32px 0 rgba(66, 36, 0, 0.11), 0 1.5px 8px 0 rgba(0,0,0,0.06);
+  backdrop-filter: blur(8px);
+}
+.card-shadow {
+  box-shadow: 0 10px 24px 0 rgba(60, 18, 0, 0.22), 0 1.5px 6px 0 rgba(0,0,0,0.06);
+}
+.error-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+}
+.error-toast.show {
+  transform: translateX(0);
+}
