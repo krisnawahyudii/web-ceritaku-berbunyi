@@ -82,3 +82,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+  const preferredLanguage = localStorage.getItem("preferredLanguage")
+  const select = document.getElementById("language-select")
+
+  if (preferredLanguage) {
+    select.value = preferredLanguage
+    const event = new Event("change")
+    select.dispatchEvent(event)
+    // Setelah digunakan, hapus supaya tidak dipakai terus-menerus
+    localStorage.removeItem("preferredLanguage")
+  }
+})

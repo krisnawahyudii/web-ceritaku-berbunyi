@@ -257,3 +257,9 @@ window.addEventListener("offline", function () {
     "Koneksi internet terputus. Beberapa fitur mungkin tidak berfungsi."
   )
 })
+function goToIndexWithIndo() {
+  // Simpan preferensi bahasa ke localStorage
+  localStorage.setItem("preferredLanguage", "id")
+  // Arahkan ke index
+  window.location.href = "index.html"
+}
